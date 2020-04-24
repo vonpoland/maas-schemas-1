@@ -61,6 +61,12 @@
       "items": {
         "$ref": "http://maasglobal.com/core/components/common.json#/definitions/agencyId"
       }
+    },
+    "verifications": {
+      "type": "array",
+      "items": {
+        "$ref": "http://maasglobal.com/maas-backend/customers/verification/verification-object.json"
+      }
     }
   },
   "required": ["personalData", "paymentSources", "balances", "region", "authorizations"],
