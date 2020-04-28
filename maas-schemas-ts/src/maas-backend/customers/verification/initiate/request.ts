@@ -8,8 +8,9 @@ MaaS customer verification initiate
 */
 
 import * as t from 'io-ts';
-import * as Units_ from 'maas-schemas-ts/core/components/units';
 import * as ApiCommon_ from 'maas-schemas-ts/core/components/api-common';
+import * as Units_ from 'maas-schemas-ts/core/components/units';
+import * as UnitsGeo_ from 'maas-schemas-ts/core/components/units-geo';
 
 type Defined =
   | Record<string, unknown>
@@ -34,17 +35,15 @@ export const schemaId =
 // The default export. More information at the top.
 export type Request = t.Branded<
   {
-    customerId?: Units_.IdentityId;
     headers?: ApiCommon_.Headers;
     identityId?: Units_.IdentityId;
     payload?: {
-      type?: string;
+      location?: UnitsGeo_.ShortLocationString;
     } & {
-      type: Defined;
+      location: Defined;
     };
   } & {
     identityId: Defined;
-    customerId: Defined;
     payload: Defined;
     headers: Defined;
   },
@@ -53,21 +52,19 @@ export type Request = t.Branded<
 export const Request = t.brand(
   t.intersection([
     t.partial({
-      customerId: Units_.IdentityId,
       headers: ApiCommon_.Headers,
       identityId: Units_.IdentityId,
       payload: t.intersection([
         t.partial({
-          type: t.string,
+          location: UnitsGeo_.ShortLocationString,
         }),
         t.type({
-          type: Defined,
+          location: Defined,
         }),
       ]),
     }),
     t.type({
       identityId: Defined,
-      customerId: Defined,
       payload: Defined,
       headers: Defined,
     }),
@@ -76,17 +73,15 @@ export const Request = t.brand(
     x,
   ): x is t.Branded<
     {
-      customerId?: Units_.IdentityId;
       headers?: ApiCommon_.Headers;
       identityId?: Units_.IdentityId;
       payload?: {
-        type?: string;
+        location?: UnitsGeo_.ShortLocationString;
       } & {
-        type: Defined;
+        location: Defined;
       };
     } & {
       identityId: Defined;
-      customerId: Defined;
       payload: Defined;
       headers: Defined;
     },
